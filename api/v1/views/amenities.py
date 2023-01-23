@@ -7,27 +7,30 @@ from flask import jsonify, abort, request
 from models import storage
 from models.amenity import Amenity
 
+
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def get_amenities():
     """retrieves the list of all amenities"""
     amenities = storage.all(Amenity)
     return jsonify(
-            [amenity.to_dict() for amenity in amenities.values()]
-            )
+        [amenity.to_dict() for amenity in amenities.values()]
+    )
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>',
+                 methods=['GET'], strict_slashes=False)
 def amenities_by_id(amenity_id):
     """retrieves amenities """
     amenities = storage.get(Amenity, amenity_id)
     if amenities is None:
         abort(404)
     return jsonify(
-            amenities.to_dict()
-            )
+        amenities.to_dict()
+    )
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def del_amenities(amenity_id):
     """delete amenities"""
     amenities = storage.get(Amenity, amenity_id)
@@ -49,11 +52,12 @@ def create_amenities():
     new_amenity = Amenity(**get_json)
     new_amenity.save()
     return jsonify(
-            new_amenity.to_dict()
-            ), 201
+        new_amenity.to_dict()
+    ), 201
 
 
-@app_views.route('amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('amenities/<amenity_id>',
+                 methods=['PUT'], strict_slashes=False)
 def update_amenities(amenity_id):
     """update amenities by ID"""
     amenity_id = storage.get(Amenity, amenity_id)
