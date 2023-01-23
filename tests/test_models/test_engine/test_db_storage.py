@@ -89,7 +89,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_get(self):
         """ Tests the get method for retrieving an object from storage """
-        storage = FileStorage()
+        storage = DBStorage()
         dic = {"name": "Vecindad"}
         state = State(**dic)
         storage.new(state)
@@ -100,14 +100,14 @@ class TestFileStorage(unittest.TestCase):
     def test_get_nonexistent_object(self):
         """ Tests the get method for attempting to 
         retrieve a non-existent object """
-        storage = FileStorage()
+        storage = DBStorage()
         non_existent_object = storage.get(State, "nonexistent_id")
         self.assertIsNone(non_existent_object)
 
     def test_count(self):
         """ Tests the count method for counting 
         the number of objects in storage """
-        storage = FileStorage()
+        storage = DBStorage()
         dic = {"name": "Vecindad"}
         state = State(**dic)
         storage.new(state)
