@@ -49,7 +49,7 @@ def create_state():
     if get_json is None:
         abort(400, 'Not a JSON')
     if get_json['name'] is None:
-        abort(400, 'Missing name')
+        abort(404, 'Missing name')
     new_state = State(**get_json)
     new_state.save()
     return jsonify(
