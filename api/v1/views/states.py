@@ -64,7 +64,7 @@ def update_state(state_id):
     if new_state is None:
         abort(404)
     if request.get_json() is None:
-        abort(404, 'Not a JSON')
+        abort(400, 'Not a JSON')
     update = request.get_json()
     attributes = ['id', 'created_at', 'updated_at']
     for key, value in update.items():
