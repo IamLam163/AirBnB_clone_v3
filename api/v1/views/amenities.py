@@ -25,4 +25,5 @@ def amenities_by_id(amenity_id):
             amenities.to_dict()
             )
 
-#@app_views.route('/amenities/<amenity_id>', method=['DELETE'], strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', method=['DELETE'], strict_slashes=False)
+def 
