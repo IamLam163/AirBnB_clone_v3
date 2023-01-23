@@ -12,8 +12,8 @@ def get_users():
     """retrieve list of Users"""
     users = storage.all(User)
     return jsonify(
-            [user.to_dict() for user in users.values()]
-            )
+        [user.to_dict() for user in users.values()]
+    )
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
@@ -24,6 +24,7 @@ def user_by_id(user_id):
         abort(404)
     return jsonify(users.to_dict())
 
+
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
 def delete_user(user_id):
     """method deltes a user"""
@@ -33,6 +34,7 @@ def delete_user(user_id):
     storage.delete(user)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_users():
@@ -48,6 +50,5 @@ def create_users():
     new_user = User(**get_json)
     new_user.save()
     return jsonify(
-            new_user.to_dict()
-            ), 201
-
+        new_user.to_dict()
+    ), 201
