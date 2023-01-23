@@ -3,7 +3,7 @@
 Amenity objects that handles all default RESTFul API actions
 """
 from api.v1.views import app_views
-from flask import jsonify, abort, request
+from flask import jsonify, abort, make_response, request
 from models import storage
 from models.amenity import Amenity
 
@@ -38,7 +38,7 @@ def del_amenities(amenity_id):
         abort(404)
     storage.delete(amenities)
     storage.save()
-    return jsonify({}), 200
+    return make_response(jsonify({}), 200)
 
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
@@ -51,9 +51,9 @@ def create_amenities():
         abort(400, 'Missing name')
     new_amenity = Amenity(**get_json)
     new_amenity.save()
-    return jsonify(
+    return make_response(jsonify(
         new_amenity.to_dict()
-    ), 201
+    ), 201)
 
 
 @app_views.route('amenities/<amenity_id>',
@@ -71,4 +71,4 @@ def update_amenities(amenity_id):
         if key not in ignore:
             setattr(amenity_id, key, values)
     amenity_id.save()
-    return jsonify(amenity_id.to_dict()), 200
+    return make_response(jsonify(amenity_id.to_dict()), 200)
